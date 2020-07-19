@@ -1,8 +1,8 @@
 'use strict';
 
-const { badRequest } = require('../Utils/boom')
 module.exports = async (request, handler) => {
   return handler.response({
-    status: 'OK'
-  })
+    status: 'OK',
+    UP_STAGE: process.env.UP_STAGE
+  });
 }
