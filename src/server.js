@@ -1,19 +1,11 @@
 'use strict';
 
-const Hapi = require('@hapi/hapi');
-const { connectDB } = require('./Utils/DB/connect');
+import http from 'http';
+import router from './routes';
+import finalhandler from 'finalhandler';
 
-const init = async () => {
-  const server = Hapi.server({
-    port: process.env.PORT || 8080,
-    host: process.env.HOST || 'localhost'
-  });
+const server = http.createServer((req, res) => {
+  router(req, res, finalhandler(req, res))
+})
 
-  connectDB();
-  const routes = require('./routes');
-
-  await server.route(routes);
-  await server.start();
-}
-
-module.exports = init;
+module.exports = server;
